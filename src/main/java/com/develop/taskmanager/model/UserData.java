@@ -3,10 +3,9 @@ package com.develop.taskmanager.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
 @Data
 @Entity
-@Table(name = "user_entity")
+@Table(name = Constants.USER_ENTITY)
 public class UserData {
 
     @Id

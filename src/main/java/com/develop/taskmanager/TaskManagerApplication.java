@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EntityScan("com.develop.taskmanager")
+@EnableJpaRepositories("com.develop.taskmanager.repository")
 public class TaskManagerApplication {
 
 	public static void main(String[] args) {
