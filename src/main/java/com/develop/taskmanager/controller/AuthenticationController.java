@@ -1,15 +1,17 @@
 package com.develop.taskmanager.controller;
 
+import com.develop.taskmanager.services.SignUpService;
+import com.develop.taskmanager.model.LoginResponseData;
+import com.develop.taskmanager.model.ResponseData;
 import com.develop.taskmanager.model.UserRequestBody;
-import com.develop.taskmanager.repository.UserEntityRepository;
 import com.develop.taskmanager.model.UserData;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/auth")
@@ -17,39 +19,30 @@ import java.util.Optional;
 @Tag(name = "Authentication APIs")
 public class AuthenticationController {
 
-    private final UserEntityRepository userRepo;
+    @Autowired
+    private SignUpService signUpService;
 
-    public AuthenticationController(UserEntityRepository userEntityRepository) {
-        this.userRepo = userEntityRepository;
+    public AuthenticationController() {
+
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserData> doSignUp(@RequestBody UserRequestBody userreq){
-        UserData uData = new UserData();
-        uData.username = userreq.username;
-        uData.mobilenumber = userreq.mobilenumber;
-        uData.password = userreq.password;
-        Optional<UserData> optRegister = Optional.of(userRepo.save(uData));
-        if(optRegister.isPresent()){
-            return ResponseEntity.ok(optRegister.get());
-        }else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<ResponseData> doSignUp(@RequestBody UserRequestBody userreq){
+        return signUpService.signUpUser(userreq);
     }
 
-//    @PostMapping("/login")
-//    public String doLogin(@RequestBody User user) {
-//        return authService.generateToken();
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseData> doLogin(@RequestParam String username,@RequestParam String password) {
+        UserData uData = new UserData();
+        uData.username = username;
+        uData.password = password;
+        uData.mobilenumber = "";
+        return signUpService.doLogin(uData);
+    }
 
     @GetMapping("/get-all-users")
     public ResponseEntity<List<UserData>> getAllUsers()
     {
-        List<UserData> users = userRepo.findAll();
-        if (!users.isEmpty()) {
-            return ResponseEntity.ok(users);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return signUpService.getAllUsers();
     }
 }
