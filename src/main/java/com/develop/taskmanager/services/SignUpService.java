@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class SignUpService {
@@ -30,11 +30,11 @@ public class SignUpService {
 
         String userExists = checkUserExistAlready(uData);
         if(!userExists.isEmpty()){
-            return ResponseEntity.ok(new ResponseData(401,userExists));
+            return ResponseEntity.ok(new ResponseData(401,userExists,null));
         }
         UserData optRegister = userRepository.save(uData);
         if(!optRegister.username.isEmpty()){
-            return ResponseEntity.ok(new ResponseData(200,"User signed-up successfully"));
+            return ResponseEntity.ok(new ResponseData(200,"User signed-up successfully",null));
         }else {
             return ResponseEntity.notFound().build();
         }
@@ -73,4 +73,6 @@ public class SignUpService {
     private String generateToken(UserData user) {
         return jwtUtil.createToken(user.username+user.password);
     }
+
+
 }

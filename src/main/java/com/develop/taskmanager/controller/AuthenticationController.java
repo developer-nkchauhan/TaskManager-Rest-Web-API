@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("api/auth")
 @Validated
@@ -27,8 +25,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<ResponseData> doSignUp(@RequestBody UserRequestBody userreq){
-        return signUpService.signUpUser(userreq);
+    public ResponseEntity<ResponseData> doSignUp(@RequestBody UserRequestBody userReq){
+        return signUpService.signUpUser(userReq);
     }
 
     @PostMapping("/login")
@@ -38,11 +36,5 @@ public class AuthenticationController {
         uData.password = password;
         uData.mobilenumber = "";
         return signUpService.doLogin(uData);
-    }
-
-    @GetMapping("/get-all-users")
-    public ResponseEntity<List<UserData>> getAllUsers()
-    {
-        return signUpService.getAllUsers();
     }
 }
