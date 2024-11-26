@@ -33,7 +33,7 @@ public class UserService {
         if(!userList.isEmpty()){
             return ResponseEntity.ok(new ResponseData(200,userList.size() > 1 ? "Users found successfully" : "User found successfully",userList));
         }else{
-            return ResponseEntity.ok(new ResponseData(401,"No User found",null));
+            return ResponseEntity.ok(new ResponseData(404,"No User found",null));
         }
     }
 }
