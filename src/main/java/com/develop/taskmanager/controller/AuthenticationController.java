@@ -1,10 +1,7 @@
 package com.develop.taskmanager.controller;
 
+import com.develop.taskmanager.model.*;
 import com.develop.taskmanager.services.SignUpService;
-import com.develop.taskmanager.model.LoginResponseData;
-import com.develop.taskmanager.model.ResponseData;
-import com.develop.taskmanager.model.UserRequestBody;
-import com.develop.taskmanager.model.UserData;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +21,12 @@ public class AuthenticationController {
 
     }
 
-    @PostMapping("/signup")
+    @PostMapping(Constants.ROUTE_SIGN_UP)
     public ResponseEntity<ResponseData> doSignUp(@RequestBody UserRequestBody userReq){
         return signUpService.signUpUser(userReq);
     }
 
-    @PostMapping("/login")
+    @PostMapping(Constants.ROUTE_LOGIN)
     public ResponseEntity<LoginResponseData> doLogin(@RequestParam String username,@RequestParam String password) {
         UserData uData = new UserData();
         uData.username = username;

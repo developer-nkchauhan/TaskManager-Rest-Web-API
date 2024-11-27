@@ -1,5 +1,6 @@
 package com.develop.taskmanager.controller;
 
+import com.develop.taskmanager.model.Constants;
 import com.develop.taskmanager.model.ResponseData;
 import com.develop.taskmanager.services.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,7 +22,7 @@ public class UserController {
     public UserController() {
     }
 
-    @GetMapping("/get-users")
+    @GetMapping(Constants.ROUTE_GET_USERS)
     public ResponseEntity<ResponseData> getUsers(@RequestParam String username) {
         return userService.getUsersByName(username);
     }

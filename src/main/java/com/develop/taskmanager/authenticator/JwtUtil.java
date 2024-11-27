@@ -12,7 +12,6 @@ import java.util.Date;
 @Component
 public class JwtUtil {
     private String secretKey = "";
-    private long validityInMilliSeconds = 3600000;
 
     public String createToken(String tokenFrom) {
         byte[] key = new byte[32];
@@ -21,6 +20,7 @@ public class JwtUtil {
 
         Claims claims = Jwts.claims().setSubject(tokenFrom);
         Date now = new Date();
+        long validityInMilliSeconds = 3600000;
         Date validity = new Date(now.getTime() + validityInMilliSeconds);
 
         return Jwts.builder()
@@ -32,7 +32,7 @@ public class JwtUtil {
     }
 
     public boolean isValid(String token){
-        return isExpired(token);
+        return !isExpired(token);
     }
 
     public boolean isExpired(String token){

@@ -28,9 +28,9 @@ public class SignUpService {
         uData.mobilenumber = userreq.mobilenumber;
         uData.password = userreq.password;
 
-        String userExists = checkUserExistAlready(uData);
-        if(!userExists.isEmpty()){
-            return ResponseEntity.ok(new ResponseData(401,userExists,null));
+        String userExistsMsg = checkUserExistAlready(uData);
+        if(!userExistsMsg.isEmpty()){
+            return ResponseEntity.ok(new ResponseData(409,userExistsMsg,null));
         }
         UserData optRegister = userRepository.save(uData);
         if(!optRegister.username.isEmpty()){
