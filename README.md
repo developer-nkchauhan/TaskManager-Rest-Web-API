@@ -14,6 +14,7 @@ it leverages **PostgreSQL** as the database to store user information securely.
 ## Features 
   - **User Signup**: Allows new users to create an account.
   - **User Login**: Authenticates users with their credentials.
+  - **Get Users**: Get Users(by passing * param) or by Username
   - **RESTful API Design**: Follows best practices for API development.
 
 ### Note:-
